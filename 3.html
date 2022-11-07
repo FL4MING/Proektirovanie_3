@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Лабораторная работа №3</title>
+	<style type="text/css">
+		H4{
+			margin: 0;
+		}
+	</style>
+</head>
+<body>
+	<h3>Добавление типа продукта</h3>
+	<form name="form" action="javascript:AddClass()">
+		<input name="Class" value=""> - Введите тип продукта
+		<br>
+		<input name="Name" value=""> - Введите название продукта
+		<br>
+		<input name="Place" value=""> - Введите место производства
+		<br>
+		<input type="submit" id="Addbutton" value="Ввести и отобразить данные">
+	</form>
+	<br>
+	<div id="NewClass">
+		
+	</div>
+	<script type="text/javascript">
+		function AddClass(){
+			var Class = document.form.Class.value;
+			if (Class == ""){
+				alert("Заполните поле типа продукта");
+			}
+			else{
+				var Class = Create(`${Class}`);
+				Class.print();
+			}
+		}
+		function Create(Class){
+			let NewClass = document.getElementById('NewClass');
+			var Name = document.form.Name.value;
+			var Place = document.form.Place.value;
+			if (Name == "") {
+				alert("Заполните поле название продукта");
+			} 
+			else {
+				if (Place == "") {
+					alert("Заполните поле места продукта");
+				}
+				else {
+					return{
+						[Class]:Class,
+						[Name]:Name,
+						[Place]:Place,
+						print(){
+							NewClass.innerHTML = (`<h4>${Class}</h4>Название продукта: ${Name}<br> Место производства: ${Place}`);
+						}
+					}
+				}
+			}
+		}
+	</script>
+</body>
+</html>
