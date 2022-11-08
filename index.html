@@ -8,16 +8,27 @@
 		H4{
 			margin: 0;
 		}
+		input{
+			margin-bottom: 0.5em;
+		}
+		select{
+			margin-bottom: 0.5em;
+		}
 	</style>
 </head>
 <body>
 	<h3>Добавление типа продукта</h3>
 	<form name="form" action="javascript:AddClass()">
-		<input name="Class" value=""> - Введите тип продукта
+		<select name="Class" style="width: 177px;">
+    		<option selected>Помидоры</option>
+    		<option>Огурцы</option>
+    		<option>Капуста</option>
+    		<option>Зелень</option>
+    	</select>
 		<br>
 		<input name="Name" value=""> - Введите название продукта
 		<br>
-		<input name="Place" value=""> - Введите место производства
+		<input name="Weight" size="3" value=""> - Введите вес продукта/кг
 		<br>
 		<input type="submit" id="Addbutton" value="Ввести и отобразить данные">
 	</form>
@@ -28,32 +39,37 @@
 	<script type="text/javascript">
 		function AddClass(){
 			var Class = document.form.Class.value;
-			if (Class == ""){
-				alert("Заполните поле типа продукта");
-			}
-			else{
-				var Class = Create(`${Class}`);
-				Class.print();
-			}
+			var Class = Create(`${Class}`);
+			Class.print();
 		}
 		function Create(Class){
 			let NewClass = document.getElementById('NewClass');
 			var Name = document.form.Name.value;
-			var Place = document.form.Place.value;
+			var Weight = document.form.Weight.value;
+			var today = new Date().toLocaleDateString();
+			var endDay = "15 суток";
+			if (Class == "Капуста") {
+				endDay = "30 суток";
+			}
+			else if (Class == "Зелень") {
+				endDay = "10 суток";
+			}
+			var Place = "Краснодар";
 			if (Name == "") {
 				alert("Заполните поле название продукта");
 			} 
 			else {
-				if (Place == "") {
-					alert("Заполните поле места продукта");
+				if (Weight == "") {
+					alert("Заполните поле вес");
 				}
-				else {
+				else{
 					return{
 						[Class]:Class,
 						[Name]:Name,
 						[Place]:Place,
+						[Weight]:Weight,
 						print(){
-							NewClass.innerHTML = (`<h4>${Class}</h4>Название продукта: ${Name}<br> Место производства: ${Place}`);
+							NewClass.innerHTML = (`<h4>${Class}</h4>Название продукта: ${Name}<br> Место производства: ${Place}<br> Дата производства: ${today}<br> Вес: ${Weight} кг<br> Окончание срока хранения: ${endDay}`);
 						}
 					}
 				}
